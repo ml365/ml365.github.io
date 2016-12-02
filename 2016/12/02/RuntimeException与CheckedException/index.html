@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/12/02/RuntimeException与CheckedException/index.html">
 <meta property="og:site_name" content="Fighting365' Blog">
 <meta property="og:description" content="在Java中提供了两种错误的异常类，分别是Error和Exception，它们拥有共同的父类Throwable。Error表示程序在运行期间出现了非常严重的错误，该错误不可恢复，发生在JVM层次，将导致程序终止执行，OutOfMemoryError、ThreadDeath都属于错误；而Exception表示可恢复的异常，可以被编译器捕捉，分为Checked Exception和RunTime Ex">
-<meta property="og:updated_time" content="2016-12-02T12:46:19.293Z">
+<meta property="og:updated_time" content="2016-12-02T12:49:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RuntimeException与CheckedException">
 <meta name="twitter:description" content="在Java中提供了两种错误的异常类，分别是Error和Exception，它们拥有共同的父类Throwable。Error表示程序在运行期间出现了非常严重的错误，该错误不可恢复，发生在JVM层次，将导致程序终止执行，OutOfMemoryError、ThreadDeath都属于错误；而Exception表示可恢复的异常，可以被编译器捕捉，分为Checked Exception和RunTime Ex">
@@ -404,8 +404,10 @@
 <h2 id="Checked-Exception："><a href="#Checked-Exception：" class="headerlink" title="Checked Exception："></a>Checked Exception：</h2><p>这类异常是在程序中最常见的，所有继承于Exception类并且不是RunTime Exception的异常都是Checked Exception，比如常见的IOException、SQLException。这类异常发生在程序的编译阶段，Java编译器强制程序去捕获该类异常，即把所有出现这些异常类的代码放到try代码块中，把对异常的处理放在catch块中，该类异常一般在如下情况下使用：</p>
 <ol>
 <li>异常的发生并不会导致程序出错，进行处理后可以继续进行后续的操作，例如，连接数据库失败后可以重新连接后进行后续操作；</li>
-<li>程序依赖于不可靠的外界条件，例如IO系统。<a id="more"></a>
-<h2 id="RunTime-Exception："><a href="#RunTime-Exception：" class="headerlink" title="RunTime Exception："></a>RunTime Exception：</h2>RunTime Exception不同于Checked Exception，编译器没有进行强制的捕获并处理。如果不对这类异常进行处理，将会交由Java虚拟机进行处理，如NullPointerException异常。常见的RunTime Exception有：NullPointerException、ClassCaseException、ArrayIndexOutOfBoundsException、ArrayStoreException、BufferOverflowException、ArithmeticException等。<br>出现异常后，系统会一值把异常往上抛出，知道遇到处理代码位置。如果没有处理代码，则抛掷最上层；如果多线程就用Thread.run()方法抛出；如果是单线程就用main()方法抛出。抛出之后，若果是线程那么该线程退出，若果是主程序，那么主程序退出。因此，如果不对运行时的异常进行处理，后果非常严重，一旦发生，线程终止，程序退出。处理RunTIme Exception时应该注意以下几点：</li>
+<li>程序依赖于不可靠的外界条件，例如IO系统。</li>
+</ol>
+<h2 id="RunTime-Exception："><a href="#RunTime-Exception：" class="headerlink" title="RunTime Exception："></a>RunTime Exception：</h2><p>RunTime Exception不同于Checked Exception，编译器没有进行强制的捕获并处理。如果不对这类异常进行处理，将会交由Java虚拟机进行处理，如NullPointerException异常。常见的RunTime Exception有：NullPointerException、ClassCaseException、ArrayIndexOutOfBoundsException、ArrayStoreException、BufferOverflowException、ArithmeticException等。<br>出现异常后，系统会一值把异常往上抛出，知道遇到处理代码位置。如果没有处理代码，则抛掷最上层；如果多线程就用Thread.run()方法抛出；如果是单线程就用main()方法抛出。抛出之后，若果是线程那么该线程退出，若果是主程序，那么主程序退出。因此，如果不对运行时的异常进行处理，后果非常严重，一旦发生，线程终止，程序退出。处理RunTIme Exception时应该注意以下几点：</p>
+<ol>
 <li>进行异常捕获时，应该按照县捕获子类，再捕获基类的信息的原则；</li>
 <li>尽早抛出异常，并对异常进行处理，或者从错误中恢复，或者让程序继续执行；</li>
 <li>根据实际情况自定义继承于Exception的异常类；</li>
