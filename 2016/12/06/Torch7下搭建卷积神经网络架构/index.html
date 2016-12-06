@@ -84,24 +84,23 @@
 
 
 
-<meta name="description" content="之前的博文，如、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
-首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中最底层是一个叫Module的抽">
+<meta name="description" content="之前的博文，如一文读懂卷积神经网络(CNN)、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
+首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Torch7下搭建卷积神经网络架构">
 <meta property="og:url" content="http://yoursite.com/2016/12/06/Torch7下搭建卷积神经网络架构/index.html">
 <meta property="og:site_name" content="Fighting365' Blog">
-<meta property="og:description" content="之前的博文，如、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
-首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中最底层是一个叫Module的抽">
-<meta property="og:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484421&idx=1&sn=d86555ab4dc69caacd201748b751f697&chksm=97ea2e60a09da776b8f299753c6a284efc91c5f5e8c94bdb63bb8bf5d213266898abb1be680b&scene=21#wechat_redirect">
+<meta property="og:description" content="之前的博文，如一文读懂卷积神经网络(CNN)、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
+首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中">
 <meta property="og:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484398&idx=1&sn=d1aa3002eeeb79528dbd4a94c8fe13c2&chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&scene=21#wechat_redirect">
 <meta property="og:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484373&idx=1&sn=5dfd72f12d3b33a63e71d9d69ca7138b&chksm=97ea29b0a09da0a69a813045db494da37cd9f5ce6787639d52c08f4ffe4651de4896fddf6a06&scene=21#wechat_redirect">
 <meta property="og:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484171&idx=1&sn=a0d96a1e70f2d68c6edf58e5be279876&scene=21#wechat_redirect">
-<meta property="og:updated_time" content="2016-12-06T01:34:39.207Z">
+<meta property="og:updated_time" content="2016-12-06T01:39:22.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Torch7下搭建卷积神经网络架构">
-<meta name="twitter:description" content="之前的博文，如、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
-首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中最底层是一个叫Module的抽">
-<meta name="twitter:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484421&idx=1&sn=d86555ab4dc69caacd201748b751f697&chksm=97ea2e60a09da776b8f299753c6a284efc91c5f5e8c94bdb63bb8bf5d213266898abb1be680b&scene=21#wechat_redirect">
+<meta name="twitter:description" content="之前的博文，如一文读懂卷积神经网络(CNN)、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
+首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中">
+<meta name="twitter:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484398&idx=1&sn=d1aa3002eeeb79528dbd4a94c8fe13c2&chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&scene=21#wechat_redirect">
 
 
 
@@ -408,7 +407,7 @@
       
 
       
-        <p>之前的博文，如<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484421&amp;idx=1&amp;sn=d86555ab4dc69caacd201748b751f697&amp;chksm=97ea2e60a09da776b8f299753c6a284efc91c5f5e8c94bdb63bb8bf5d213266898abb1be680b&amp;scene=21#wechat_redirect" alt="一文读懂卷积神经网络(CNN)">、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484398&amp;idx=1&amp;sn=d1aa3002eeeb79528dbd4a94c8fe13c2&amp;chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&amp;scene=21#wechat_redirect" alt="多层网络与反向传播算法详解">、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484373&amp;idx=1&amp;sn=5dfd72f12d3b33a63e71d9d69ca7138b&amp;chksm=97ea29b0a09da0a69a813045db494da37cd9f5ce6787639d52c08f4ffe4651de4896fddf6a06&amp;scene=21#wechat_redirect" alt="感知机详解">、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484171&amp;idx=1&amp;sn=a0d96a1e70f2d68c6edf58e5be279876&amp;scene=21#wechat_redirect" alt="卷积神经网络详解">等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。</p>
+        <p>之前的博文，如<a href="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484421&amp;idx=1&amp;sn=d86555ab4dc69caacd201748b751f697&amp;chksm=97ea2e60a09da776b8f299753c6a284efc91c5f5e8c94bdb63bb8bf5d213266898abb1be680b&amp;scene=21#wechat_redirect" target="_blank" rel="external">一文读懂卷积神经网络(CNN)</a>、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484398&amp;idx=1&amp;sn=d1aa3002eeeb79528dbd4a94c8fe13c2&amp;chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&amp;scene=21#wechat_redirect" alt="多层网络与反向传播算法详解">、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484373&amp;idx=1&amp;sn=5dfd72f12d3b33a63e71d9d69ca7138b&amp;chksm=97ea29b0a09da0a69a813045db494da37cd9f5ce6787639d52c08f4ffe4651de4896fddf6a06&amp;scene=21#wechat_redirect" alt="感知机详解">、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484171&amp;idx=1&amp;sn=a0d96a1e70f2d68c6edf58e5be279876&amp;scene=21#wechat_redirect" alt="卷积神经网络详解">等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。</p>
 <p>首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中最底层是一个叫Module的抽象模块，Container是对其功能扩展的子模块，Sequential、Parallel和Concat是继承于Container最重要的三个子模块，所构成的神经网络既可以包括简单层，如Linear、Mean、Max和Reshape等，也可以包括卷基层以及激活函数等。通过这些类可以构成神经网络的架构，但是关于如何训练需要一个性能指标也就是损失函数，在NN中损失函数定义在Criterion模块中，常用的损失函数有MSECriterion (均方根误出)、ClassNLLCriterion (交叉熵)。很自然的，有了性能指标之后我们需要考虑如何优化该性能指标，这儿分为两种，一种是使用Torch7内部的优化函数包Optim来优化（简单，上手快），另一种则是采用迭代法更新权值（该方法一般用于简单的网络，当存在卷积层时，优化困难），推荐使用Optiml来优化。</p>
 <p>在了解了NN包的组成模块后，让我们详细的了解一下Module模块。上面我们说到NN有不同的模块组成，这些模块有的有参数，有的无参数，但是都有输入dLoss_dInput和输出dLoss_dOutput（除输入层模块和输出层模块以外）；对于那些有参数的模块而言需要计算dLoss_dParams,该参数其实包括两部分，一部分是权值，即dLoss_dWeight，另一部分是偏置，即dLoss_dBias.<br>在Module中定义了四个基本函数方法，如下所示：</p>
 <ol>
