@@ -84,23 +84,34 @@
 
 
 
-<meta name="description" content="之前的博文，如一文读懂卷积神经网络(CNN)、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
-首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中">
+<meta name="description" content="综述之前的博文，如一文读懂卷积神经网络(CNN)、多层网络与反向传播算法详解、感知机详解、卷积神经网络详解等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
+首先简单的介绍一下Torch7">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Torch7下搭建卷积神经网络架构">
 <meta property="og:url" content="http://yoursite.com/2016/12/06/Torch7下搭建卷积神经网络架构/index.html">
 <meta property="og:site_name" content="Fighting365' Blog">
-<meta property="og:description" content="之前的博文，如一文读懂卷积神经网络(CNN)、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
-首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中">
-<meta property="og:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484398&idx=1&sn=d1aa3002eeeb79528dbd4a94c8fe13c2&chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&scene=21#wechat_redirect">
-<meta property="og:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484373&idx=1&sn=5dfd72f12d3b33a63e71d9d69ca7138b&chksm=97ea29b0a09da0a69a813045db494da37cd9f5ce6787639d52c08f4ffe4651de4896fddf6a06&scene=21#wechat_redirect">
-<meta property="og:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484171&idx=1&sn=a0d96a1e70f2d68c6edf58e5be279876&scene=21#wechat_redirect">
-<meta property="og:updated_time" content="2016-12-06T01:39:22.571Z">
+<meta property="og:description" content="综述之前的博文，如一文读懂卷积神经网络(CNN)、多层网络与反向传播算法详解、感知机详解、卷积神经网络详解等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
+首先简单的介绍一下Torch7">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-1.jpg">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-2.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-3.jpg">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-4.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-5.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-6.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-7.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-8.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-9.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-10.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-11.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-12.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-13.png">
+<meta property="og:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-14.jpg">
+<meta property="og:updated_time" content="2016-12-06T01:58:51.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Torch7下搭建卷积神经网络架构">
-<meta name="twitter:description" content="之前的博文，如一文读懂卷积神经网络(CNN)、、、等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
-首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中">
-<meta name="twitter:image" content="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&mid=2247484398&idx=1&sn=d1aa3002eeeb79528dbd4a94c8fe13c2&chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&scene=21#wechat_redirect">
+<meta name="twitter:description" content="综述之前的博文，如一文读懂卷积神经网络(CNN)、多层网络与反向传播算法详解、感知机详解、卷积神经网络详解等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。
+首先简单的介绍一下Torch7">
+<meta name="twitter:image" content="http://ohjjbd1gh.bkt.clouddn.com/8-1.jpg">
 
 
 
@@ -407,7 +418,7 @@
       
 
       
-        <p>之前的博文，如<a href="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484421&amp;idx=1&amp;sn=d86555ab4dc69caacd201748b751f697&amp;chksm=97ea2e60a09da776b8f299753c6a284efc91c5f5e8c94bdb63bb8bf5d213266898abb1be680b&amp;scene=21#wechat_redirect" target="_blank" rel="external">一文读懂卷积神经网络(CNN)</a>、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484398&amp;idx=1&amp;sn=d1aa3002eeeb79528dbd4a94c8fe13c2&amp;chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&amp;scene=21#wechat_redirect" alt="多层网络与反向传播算法详解">、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484373&amp;idx=1&amp;sn=5dfd72f12d3b33a63e71d9d69ca7138b&amp;chksm=97ea29b0a09da0a69a813045db494da37cd9f5ce6787639d52c08f4ffe4651de4896fddf6a06&amp;scene=21#wechat_redirect" alt="感知机详解">、<img src="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484171&amp;idx=1&amp;sn=a0d96a1e70f2d68c6edf58e5be279876&amp;scene=21#wechat_redirect" alt="卷积神经网络详解">等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。</p>
+        <h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><p>之前的博文，如<a href="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484421&amp;idx=1&amp;sn=d86555ab4dc69caacd201748b751f697&amp;chksm=97ea2e60a09da776b8f299753c6a284efc91c5f5e8c94bdb63bb8bf5d213266898abb1be680b&amp;scene=21#wechat_redirect" target="_blank" rel="external">一文读懂卷积神经网络(CNN)</a>、<a href="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484398&amp;idx=1&amp;sn=d1aa3002eeeb79528dbd4a94c8fe13c2&amp;chksm=97ea298ba09da09d4166fe77b9a83dd02c9dab673320a4781e86997f0f507d7969ba4acabb93&amp;scene=21#wechat_redirect" target="_blank" rel="external">多层网络与反向传播算法详解</a>、<a href="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484373&amp;idx=1&amp;sn=5dfd72f12d3b33a63e71d9d69ca7138b&amp;chksm=97ea29b0a09da0a69a813045db494da37cd9f5ce6787639d52c08f4ffe4651de4896fddf6a06&amp;scene=21#wechat_redirect" target="_blank" rel="external">感知机详解</a>、<a href="http://mp.weixin.qq.com/s?__biz=MzIxODM4MjA5MA==&amp;mid=2247484171&amp;idx=1&amp;sn=a0d96a1e70f2d68c6edf58e5be279876&amp;scene=21#wechat_redirect" target="_blank" rel="external">卷积神经网络详解</a>等已经比较详细的讲述了神经网络以及卷积神经网络的知识。本篇博文主要讲述在Torch7中神经网络如何建立以及相关的原理（即神经网络包NN的内容），虽然讲述的是神经网络的建立。但是不会涉及太多神经网络的知识，假如你对该领域不是很了解，可以去之前的几篇博文里面充充电。</p>
 <p>首先简单的介绍一下Torch7中的神经网络工具包，该包是由不同的模块组合而成。NN包中最底层是一个叫Module的抽象模块，Container是对其功能扩展的子模块，Sequential、Parallel和Concat是继承于Container最重要的三个子模块，所构成的神经网络既可以包括简单层，如Linear、Mean、Max和Reshape等，也可以包括卷基层以及激活函数等。通过这些类可以构成神经网络的架构，但是关于如何训练需要一个性能指标也就是损失函数，在NN中损失函数定义在Criterion模块中，常用的损失函数有MSECriterion (均方根误出)、ClassNLLCriterion (交叉熵)。很自然的，有了性能指标之后我们需要考虑如何优化该性能指标，这儿分为两种，一种是使用Torch7内部的优化函数包Optim来优化（简单，上手快），另一种则是采用迭代法更新权值（该方法一般用于简单的网络，当存在卷积层时，优化困难），推荐使用Optiml来优化。</p>
 <p>在了解了NN包的组成模块后，让我们详细的了解一下Module模块。上面我们说到NN有不同的模块组成，这些模块有的有参数，有的无参数，但是都有输入dLoss_dInput和输出dLoss_dOutput（除输入层模块和输出层模块以外）；对于那些有参数的模块而言需要计算dLoss_dParams,该参数其实包括两部分，一部分是权值，即dLoss_dWeight，另一部分是偏置，即dLoss_dBias.<br>在Module中定义了四个基本函数方法，如下所示：</p>
 <ol>
@@ -416,6 +427,19 @@
 <li>zeroGradParameters() 用于权值迭代更新，用到的概率比较小；</li>
 <li>updateGradParameters(learningRate) 用于迭代更新内部权值，后面详细讲解；</li>
 </ol>
+<h1 id="下面让我们一起动手尝试如何构建神经网络的架构"><a href="#下面让我们一起动手尝试如何构建神经网络的架构" class="headerlink" title="下面让我们一起动手尝试如何构建神经网络的架构"></a>下面让我们一起动手尝试如何构建神经网络的架构</h1><p>在搭建之前先看一下卷积神经网络的架构，如下所示。<br><img src="http://ohjjbd1gh.bkt.clouddn.com/8-1.jpg" alt=""></p>
+<h2 id="首先将Torch7中的nn包导入到工作区-注意语句结束加“；”-，这儿使用require关键字，如下所示。"><a href="#首先将Torch7中的nn包导入到工作区-注意语句结束加“；”-，这儿使用require关键字，如下所示。" class="headerlink" title="首先将Torch7中的nn包导入到工作区(注意语句结束加“；”)，这儿使用require关键字，如下所示。"></a>首先将Torch7中的nn包导入到工作区(注意语句结束加“；”)，这儿使用require关键字，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-2.png" alt=""></p>
+<h2 id="接下来需要申明一个神经网络容器来搭建神经网络，如上所述，目前有三种方式可以定义，第一种Sequential则采用队列方式，一层层的搭建，Concat和Parallel如字面意思那样，如下所示。"><a href="#接下来需要申明一个神经网络容器来搭建神经网络，如上所述，目前有三种方式可以定义，第一种Sequential则采用队列方式，一层层的搭建，Concat和Parallel如字面意思那样，如下所示。" class="headerlink" title="接下来需要申明一个神经网络容器来搭建神经网络，如上所述，目前有三种方式可以定义，第一种Sequential则采用队列方式，一层层的搭建，Concat和Parallel如字面意思那样，如下所示。"></a>接下来需要申明一个神经网络容器来搭建神经网络，如上所述，目前有三种方式可以定义，第一种Sequential则采用队列方式，一层层的搭建，Concat和Parallel如字面意思那样，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-3.jpg" alt=""><br>在此演示采用的是Sequential子模块，如下所示。<br><img src="http://ohjjbd1gh.bkt.clouddn.com/8-4.png" alt=""></p>
+<h2 id="现在有了容器后需要向net容器添加卷积层，输入通道为2，输出通道为8，卷积核大小为6x6，如下所示。"><a href="#现在有了容器后需要向net容器添加卷积层，输入通道为2，输出通道为8，卷积核大小为6x6，如下所示。" class="headerlink" title="现在有了容器后需要向net容器添加卷积层，输入通道为2，输出通道为8，卷积核大小为6x6，如下所示。"></a>现在有了容器后需要向net容器添加卷积层，输入通道为2，输出通道为8，卷积核大小为6x6，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-5.png" alt=""><br>(介绍一下卷积函数：<br>module = nn.SpatialConvolution(nInputPlane, nOutputPlane, kW, kH, [dW],<br>    [dH], [padW], [padH])<br>参数含义如下：<br>nInputPlane：输入的通道数<br>nOutputPlane：输出的通道数<br>kW x kH：定义卷积核的大小<br>[dW],[dH：分别为横向和纵向移动的步长，默认值为1<br>[padW]：宽度维度附加值，默认值为零，使用时推荐设置为(kW-1)/2。在卷积运算的维度不匹配时起作用，这儿不考虑]<br>[padH]：与padW类似，推荐设置为(kH-1)/2)</p>
+<h2 id="然后添加往卷基层添加卷积的操作以及激活函数ReLU，如下所示。"><a href="#然后添加往卷基层添加卷积的操作以及激活函数ReLU，如下所示。" class="headerlink" title="然后添加往卷基层添加卷积的操作以及激活函数ReLU，如下所示。"></a>然后添加往卷基层添加卷积的操作以及激活函数ReLU，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-6.png" alt=""></p>
+<h2 id="加入新的池化Pooling层，在3x3的区域内寻找最大值作为该区域的值，横向和纵向的查找步长分别为3，如下所示。"><a href="#加入新的池化Pooling层，在3x3的区域内寻找最大值作为该区域的值，横向和纵向的查找步长分别为3，如下所示。" class="headerlink" title="加入新的池化Pooling层，在3x3的区域内寻找最大值作为该区域的值，横向和纵向的查找步长分别为3，如下所示。"></a>加入新的池化Pooling层，在3x3的区域内寻找最大值作为该区域的值，横向和纵向的查找步长分别为3，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-7.png" alt=""><br>(介绍一下池化函数：<br>module<br> = nn.SpatialMaxPooling(kW, kH, [dW], [dH], [padW], [padH])<br>参数的定义与卷积函数的定义一致，见上面)</p>
+<h2 id="重复上述过程，分别添加卷基层-输入通道为8，输出通道为16，卷积核大小为6x6-，激活函数-ReLU-，池化层-3x3-横纵向步长为3-，如下所示。"><a href="#重复上述过程，分别添加卷基层-输入通道为8，输出通道为16，卷积核大小为6x6-，激活函数-ReLU-，池化层-3x3-横纵向步长为3-，如下所示。" class="headerlink" title="重复上述过程，分别添加卷基层(输入通道为8，输出通道为16，卷积核大小为6x6)，激活函数(ReLU)，池化层(3x3, 横纵向步长为3)，如下所示。"></a>重复上述过程，分别添加卷基层(输入通道为8，输出通道为16，卷积核大小为6x6)，激活函数(ReLU)，池化层(3x3, 横纵向步长为3)，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-8.png" alt=""></p>
+<h2 id="将三维的Tensor转换成一维的Tensor-如下所示。"><a href="#将三维的Tensor转换成一维的Tensor-如下所示。" class="headerlink" title="将三维的Tensor转换成一维的Tensor,如下所示。"></a>将三维的Tensor转换成一维的Tensor,如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-9.png" alt=""></p>
+<h2 id="添加1666-576与200的线性全连接层，如下所示。"><a href="#添加1666-576与200的线性全连接层，如下所示。" class="headerlink" title="添加1666=576与200的线性全连接层，如下所示。"></a>添加16<em>6</em>6=576与200的线性全连接层，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-10.png" alt=""> </p>
+<h2 id="添加激活函数，如下所示。"><a href="#添加激活函数，如下所示。" class="headerlink" title="添加激活函数，如下所示。"></a>添加激活函数，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-11.png" alt=""></p>
+<h2 id="添加200与120的线性全连接层，并添加激活函数，如下所示。"><a href="#添加200与120的线性全连接层，并添加激活函数，如下所示。" class="headerlink" title="添加200与120的线性全连接层，并添加激活函数，如下所示。"></a>添加200与120的线性全连接层，并添加激活函数，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-12.png" alt=""></p>
+<h2 id="添加120与20的线性全连接层，并采用不softMAX将输出转换成概率，如下所示。"><a href="#添加120与20的线性全连接层，并采用不softMAX将输出转换成概率，如下所示。" class="headerlink" title="添加120与20的线性全连接层，并采用不softMAX将输出转换成概率，如下所示。"></a>添加120与20的线性全连接层，并采用不softMAX将输出转换成概率，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-13.png" alt=""></p>
+<h2 id="至此含有多个卷基层的卷积神经网络的结构已经搭建完毕，将其打印可以清晰的描述其结构，如下所示。"><a href="#至此含有多个卷基层的卷积神经网络的结构已经搭建完毕，将其打印可以清晰的描述其结构，如下所示。" class="headerlink" title="至此含有多个卷基层的卷积神经网络的结构已经搭建完毕，将其打印可以清晰的描述其结构，如下所示。"></a>至此含有多个卷基层的卷积神经网络的结构已经搭建完毕，将其打印可以清晰的描述其结构，如下所示。</h2><p><img src="http://ohjjbd1gh.bkt.clouddn.com/8-14.jpg" alt=""><br>这样，我们就搭建了一个卷积神经网络的架构，接下来需要考虑的就是如何训练这样一个神经网络，这个问题将在以后给出。<br>参考文章：<br><a href="http://blog.csdn.net/u010946556/article/details/51332644" target="_blank" rel="external">http://blog.csdn.net/u010946556/article/details/51332644</a><br><a href="http://blog.csdn.net/hungryof/article/details/52022415" target="_blank" rel="external">http://blog.csdn.net/hungryof/article/details/52022415</a><br>等等不一一列出，感谢你们的分享。</p>
 
       
     </div>
@@ -535,8 +559,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/weixin.png"
@@ -663,6 +696,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#综述"><span class="nav-number">1.</span> <span class="nav-text">综述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下面让我们一起动手尝试如何构建神经网络的架构"><span class="nav-number">2.</span> <span class="nav-text">下面让我们一起动手尝试如何构建神经网络的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#首先将Torch7中的nn包导入到工作区-注意语句结束加“；”-，这儿使用require关键字，如下所示。"><span class="nav-number">2.1.</span> <span class="nav-text">首先将Torch7中的nn包导入到工作区(注意语句结束加“；”)，这儿使用require关键字，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接下来需要申明一个神经网络容器来搭建神经网络，如上所述，目前有三种方式可以定义，第一种Sequential则采用队列方式，一层层的搭建，Concat和Parallel如字面意思那样，如下所示。"><span class="nav-number">2.2.</span> <span class="nav-text">接下来需要申明一个神经网络容器来搭建神经网络，如上所述，目前有三种方式可以定义，第一种Sequential则采用队列方式，一层层的搭建，Concat和Parallel如字面意思那样，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在有了容器后需要向net容器添加卷积层，输入通道为2，输出通道为8，卷积核大小为6x6，如下所示。"><span class="nav-number">2.3.</span> <span class="nav-text">现在有了容器后需要向net容器添加卷积层，输入通道为2，输出通道为8，卷积核大小为6x6，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#然后添加往卷基层添加卷积的操作以及激活函数ReLU，如下所示。"><span class="nav-number">2.4.</span> <span class="nav-text">然后添加往卷基层添加卷积的操作以及激活函数ReLU，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入新的池化Pooling层，在3x3的区域内寻找最大值作为该区域的值，横向和纵向的查找步长分别为3，如下所示。"><span class="nav-number">2.5.</span> <span class="nav-text">加入新的池化Pooling层，在3x3的区域内寻找最大值作为该区域的值，横向和纵向的查找步长分别为3，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复上述过程，分别添加卷基层-输入通道为8，输出通道为16，卷积核大小为6x6-，激活函数-ReLU-，池化层-3x3-横纵向步长为3-，如下所示。"><span class="nav-number">2.6.</span> <span class="nav-text">重复上述过程，分别添加卷基层(输入通道为8，输出通道为16，卷积核大小为6x6)，激活函数(ReLU)，池化层(3x3, 横纵向步长为3)，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将三维的Tensor转换成一维的Tensor-如下所示。"><span class="nav-number">2.7.</span> <span class="nav-text">将三维的Tensor转换成一维的Tensor,如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加1666-576与200的线性全连接层，如下所示。"><span class="nav-number">2.8.</span> <span class="nav-text">添加1666=576与200的线性全连接层，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加激活函数，如下所示。"><span class="nav-number">2.9.</span> <span class="nav-text">添加激活函数，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加200与120的线性全连接层，并添加激活函数，如下所示。"><span class="nav-number">2.10.</span> <span class="nav-text">添加200与120的线性全连接层，并添加激活函数，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加120与20的线性全连接层，并采用不softMAX将输出转换成概率，如下所示。"><span class="nav-number">2.11.</span> <span class="nav-text">添加120与20的线性全连接层，并采用不softMAX将输出转换成概率，如下所示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#至此含有多个卷基层的卷积神经网络的结构已经搭建完毕，将其打印可以清晰的描述其结构，如下所示。"><span class="nav-number">2.12.</span> <span class="nav-text">至此含有多个卷基层的卷积神经网络的结构已经搭建完毕，将其打印可以清晰的描述其结构，如下所示。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
